@@ -1,0 +1,1011 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Angel Gabriel R. Ballon | Developer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #050a0f;
+    --surface: #0b1622;
+    --card: #0f1e2e;
+    --blue: #0f6fff;
+    --cyan: #00d4ff;
+    --accent: #ff6b35;
+    --text: #d0e8ff;
+    --muted: #5a7a9a;
+    --border: #1a3050;
+    --mono: 'Space Mono', monospace;
+    --display: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    background: var(--cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid var(--cyan);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+    opacity: 0.5;
+  }
+
+  /* GRID BACKGROUND */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(15,111,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,111,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(5,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--cyan);
+    letter-spacing: 2px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 60px;
+    position: relative;
+  }
+  .hero-inner { max-width: 900px; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    border: 1px solid var(--cyan);
+    padding: 6px 16px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-name {
+    font-family: var(--display);
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 12px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-name .first { color: var(--text); }
+  .hero-name .last {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--blue);
+  }
+  .hero-role {
+    font-family: var(--display);
+    font-size: clamp(1rem, 3vw, 1.8rem);
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-desc {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .btn {
+    padding: 14px 32px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: none;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    border: 2px solid var(--blue);
+  }
+  .btn-primary:hover {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: var(--bg);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,212,255,0.3);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--cyan);
+    border: 2px solid var(--cyan);
+  }
+  .btn-outline:hover {
+    background: var(--cyan);
+    color: var(--bg);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 60px;
+    margin-top: 64px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+  .stat-number {
+    font-family: var(--display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--cyan);
+  }
+  .stat-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+  /* FLOATING CODE BLOCK */
+  .code-float {
+    position: absolute;
+    right: 60px;
+    bottom: 80px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 28px;
+    font-size: 0.72rem;
+    line-height: 2;
+    color: var(--muted);
+    min-width: 300px;
+    animation: floatCode 4s ease-in-out infinite;
+    display: none;
+  }
+  @media(min-width: 1100px) { .code-float { display: block; } }
+  .code-float .kw { color: var(--blue); }
+  .code-float .str { color: var(--cyan); }
+  .code-float .fn { color: var(--accent); }
+  .code-float .cm { color: var(--muted); opacity: 0.6; }
+  .line-num { color: var(--border); margin-right: 16px; user-select: none; }
+
+  /* FLOATING PHOTO CARD */
+  .photo-float {
+    position: absolute;
+    right: 60px;
+    top: 110px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 0;
+    min-width: 220px;
+    max-width: 220px;
+    animation: floatPhoto 4s 2s ease-in-out infinite;
+    display: none;
+    overflow: hidden;
+  }
+  @media(min-width: 1100px) { .photo-float { display: block; } }
+
+  .photo-float-header {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .photo-float-header .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--cyan);
+    opacity: 0.7;
+  }
+
+  .photo-drop-zone {
+    position: relative;
+    width: 220px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .photo-drop-zone:hover { background: rgba(0,212,255,0.04); }
+  .photo-drop-zone.has-image { padding: 0; }
+
+  .photo-drop-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .photo-preview {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: none;
+  }
+
+  .photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .photo-icon-ring {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    border: 1px dashed var(--cyan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+  }
+  .photo-drop-zone:hover .photo-icon-ring { opacity: 0.9; }
+
+  .photo-icon-ring svg {
+    width: 22px; height: 22px;
+    stroke: var(--cyan);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+  }
+
+  .photo-hint {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    opacity: 0.7;
+    line-height: 1.8;
+  }
+
+  .photo-float-footer {
+    padding: 8px 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.58rem;
+    letter-spacing: 1px;
+    color: var(--muted);
+    opacity: 0.5;
+    text-align: center;
+  }
+
+  /* Drag highlight */
+  .photo-drop-zone.drag-over {
+    background: rgba(0,212,255,0.08);
+    border: 1px dashed var(--cyan);
+  }
+  .photo-drop-zone.drag-over .photo-icon-ring { opacity: 1; }
+
+  /* ABOUT */
+  #about {
+    padding: 100px 60px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.1;
+    margin-bottom: 48px;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .about-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .detail-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 20px;
+    transition: border-color 0.3s;
+  }
+  .detail-card:hover { border-color: var(--blue); }
+  .detail-label { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .detail-value { font-family: var(--display); font-size: 0.95rem; font-weight: 700; color: var(--text); }
+
+  /* SKILLS */
+  #skills { padding: 100px 60px; }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 48px;
+  }
+  .skill-cell {
+    background: var(--card);
+    padding: 28px 24px;
+    transition: background 0.3s;
+  }
+  .skill-cell:hover { background: var(--surface); }
+  .skill-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .skill-name { font-family: var(--display); font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
+  /* PROJECTS */
+  #projects {
+    padding: 100px 60px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 36px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card:hover { border-color: var(--blue); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(15,111,255,0.15); }
+  .project-num {
+    font-family: var(--display);
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--border);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .project-title { font-family: var(--display); font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: 12px; }
+  .project-desc { font-size: 0.8rem; line-height: 1.8; color: var(--muted); margin-bottom: 20px; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 8px; }
+  .stack-tag {
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    background: rgba(15,111,255,0.1);
+    border: 1px solid rgba(15,111,255,0.3);
+    color: var(--cyan);
+  }
+
+  /* CERTIFICATIONS */
+  #certs { padding: 100px 60px; }
+  .certs-list { margin-top: 48px; display: flex; flex-direction: column; gap: 2px; }
+  .cert-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    transition: all 0.3s;
+    cursor: none;
+  }
+  .cert-item:hover { border-color: var(--cyan); padding-left: 44px; }
+  .cert-left { display: flex; align-items: center; gap: 20px; }
+  .cert-icon { font-size: 1.4rem; min-width: 30px; }
+  .cert-name { font-family: var(--display); font-weight: 600; color: var(--text); font-size: 0.95rem; }
+  .cert-issuer { font-size: 0.7rem; color: var(--muted); margin-top: 4px; letter-spacing: 1px; }
+  .cert-year { font-size: 0.7rem; color: var(--muted); letter-spacing: 2px; white-space: nowrap; }
+
+  /* CONTACT */
+  #contact {
+    padding: 100px 60px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .contact-title {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .contact-title span { color: var(--cyan); }
+  .contact-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 48px; line-height: 1.8; }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    transition: all 0.3s;
+    cursor: none;
+  }
+  .contact-link:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.05); }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer span { font-size: 0.65rem; letter-spacing: 2px; color: var(--muted); }
+  .footer-ibm { color: var(--blue); font-weight: 700; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes floatCode {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-12px) translateX(4px); }
+  }
+
+  @keyframes floatPhoto {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    50% { transform: translateY(-10px) translateX(-3px); }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media(max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero, #about, #skills, #projects, #certs, #contact { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <div class="nav-logo">A<span>.</span>G<span>.</span>B</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">&#x2022; Available for hire · IBM Philippines Applicant</div>
+    <div class="hero-name">
+      <div class="first">Angel Gabriel</div>
+      <div class="last">Ballon.</div>
+    </div>
+    <div class="hero-role">Junior Software Developer</div>
+    <p class="hero-desc">
+      Building clean, scalable, and human-centered software. Passionate about full-stack development,
+      enterprise solutions, and continuous learning in the IBM ecosystem.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-number">23</div>
+        <div class="stat-label">Years Old</div>
+      </div>
+      <div>
+        <div class="stat-number">4+</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div>
+        <div class="stat-number">4</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div>
+        <div class="stat-number">BS IT</div>
+        <div class="stat-label">Graduate</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING PHOTO CARD (upper right) -->
+  <div class="photo-float" id="photoFloat">
+    <div class="photo-float-header">
+      <div class="dot"></div>
+      profile.jpg
+    </div>
+    <div class="photo-drop-zone" id="dropZone">
+      <input type="file" id="photoInput" accept="image/*" title="Upload photo"/>
+      <img class="photo-preview" id="photoPreview" alt="Profile photo"/>
+      <div class="photo-placeholder" id="photoPlaceholder">
+        <div class="photo-icon-ring">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            <path d="M16 3l2 2 2-2M18 5V1"/>
+          </svg>
+        </div>
+        <div class="photo-hint">Click or drop<br/>your photo here</div>
+      </div>
+    </div>
+    <div class="photo-float-footer">PNG · JPG · WEBP</div>
+    <div id="exportWrap" style="display:none; padding: 10px 16px; border-top: 1px solid var(--border);">
+      <button onclick="exportHTML()" style="
+        width: 100%;
+        background: var(--blue);
+        color: #fff;
+        border: none;
+        padding: 8px 0;
+        font-family: var(--mono);
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: background 0.3s;
+      ">⬇ Export index.html</button>
+    </div>
+  </div>
+
+  <!-- FLOATING CODE BLOCK (lower right) -->
+  <div class="code-float">
+    <div><span class="line-num">01</span><span class="cm">// Angel Gabriel R. Ballon</span></div>
+    <div><span class="line-num">02</span><span class="kw">const</span> developer = {</div>
+    <div><span class="line-num">03</span>  name: <span class="str">"Angel Gabriel"</span>,</div>
+    <div><span class="line-num">04</span>  age: <span class="str">23</span>,</div>
+    <div><span class="line-num">05</span>  role: <span class="str">"Junior Dev"</span>,</div>
+    <div><span class="line-num">06</span>  target: <span class="str">"IBM Philippines"</span>,</div>
+    <div><span class="line-num">07</span>  stack: [<span class="str">"Java"</span>, <span class="str">"React"</span>,</div>
+    <div><span class="line-num">08</span>          <span class="str">"Python"</span>, <span class="str">"Node"</span>],</div>
+    <div><span class="line-num">09</span>  <span class="fn">isHireable</span>: () <span class="kw">=></span> <span class="kw">true</span></div>
+    <div><span class="line-num">10</span>};</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 / About</div>
+  <div class="section-title reveal">Who I Am</div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm Angel Gabriel R. Ballon, a 23-year-old BS Information Technology graduate from University of Eastern Pangasinan. I'm passionate about writing code that solves real-world problems — from building full-stack web apps to exploring cloud technologies.
+      </p>
+      <p>
+        My development journey started in college where I fell in love with the craft of software engineering. I've since built projects ranging from facial recognition systems to e-commerce platforms, always aiming to make technology more accessible and impactful.
+      </p>
+      <p>
+        I'm applying to IBM Philippines as a Junior Software Developer because IBM's commitment to responsible, enterprise-grade innovation matches exactly where I want to grow as a developer.
+      </p>
+    </div>
+    <div class="about-details reveal">
+      <div class="detail-card">
+        <div class="detail-label">Full Name</div>
+        <div class="detail-value">Angel Gabriel R. Ballon</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Age</div>
+        <div class="detail-value">23 Years Old</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Degree</div>
+        <div class="detail-value">BS Information Technology</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Location</div>
+        <div class="detail-value">Philippines</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Status</div>
+        <div class="detail-value">Seeking IBM Junior Dev Role</div>
+      </div>
+      <div class="detail-card">
+        <div class="detail-label">Languages</div>
+        <div class="detail-value">Filipino & English</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">02 / Skills</div>
+  <div class="section-title reveal">Technical Stack</div>
+  <div class="skills-grid reveal">
+    <div class="skill-cell">
+      <div class="skill-icon">☕</div>
+      <div class="skill-name">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">HTML5</span>
+        <span class="skill-tag">CSS3</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">⚛️</div>
+      <div class="skill-name">Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React.js</span>
+        <span class="skill-tag">HTML/CSS</span>
+        <span class="skill-tag">Tailwind</span>
+        <span class="skill-tag">Responsive Design</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">🔧</div>
+      <div class="skill-name">Backend</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Spring Boot</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">Flask</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">PostgreSQL</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-name">Cloud & DevOps</div>
+      <div class="skill-tags">
+        <span class="skill-tag">IBM Cloud</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Linux</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">🧠</div>
+      <div class="skill-name">Soft Skills</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Agile/Scrum</span>
+        <span class="skill-tag">Team Collaboration</span>
+        <span class="skill-tag">Problem-Solving</span>
+        <span class="skill-tag">Communication</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">03 / Projects</div>
+  <div class="section-title reveal">What I've Built</div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-num">01</div>
+      <div class="project-title">Campus E-Commerce Platform</div>
+      <p class="project-desc">A full-stack student marketplace allowing 200+ campus users to buy and sell items. Features JWT authentication, product filtering, real-time messaging, and a clean dashboard UI.</p>
+      <div class="project-stack">
+        <span class="stack-tag">React.js</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">MongoDB</span>
+        <span class="stack-tag">REST API</span>
+        <span class="stack-tag">JWT</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div class="project-title">Smart Attendance System</div>
+      <p class="project-desc">Facial recognition-based attendance tracker using OpenCV and Python. Reduced manual tracking time by 80%. Includes a Flask web dashboard for instructors to view real-time reports.</p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">OpenCV</span>
+        <span class="stack-tag">Flask</span>
+        <span class="stack-tag">MySQL</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">03</div>
+      <div class="project-title">Web-Based Inventory System</div>
+      <p class="project-desc">Capstone project — a full inventory management system with role-based access, reporting tools, barcode scanning integration, and automated low-stock alerts for small businesses.</p>
+      <div class="project-stack">
+        <span class="stack-tag">React.js</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">MySQL</span>
+        <span class="stack-tag">Chart.js</span>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">04</div>
+      <div class="project-title">Helpdesk Ticket Tracker</div>
+      <p class="project-desc">Built during internship — an internal issue tracking system with ticket priority queuing, assignment workflows, and SLA monitoring. Resolved 30+ production bugs post-deployment.</p>
+      <div class="project-stack">
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">React.js</span>
+        <span class="stack-tag">REST API</span>
+        <span class="stack-tag">Git</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="section-label">04 / Certifications</div>
+  <div class="section-title reveal">Credentials</div>
+  <div class="certs-list reveal">
+    <div class="cert-item">
+      <div class="cert-left">
+        <div class="cert-icon">🔵</div>
+        <div>
+          <div class="cert-name">IBM SkillsBuild: Introduction to Cloud Computing</div>
+          <div class="cert-issuer">IBM SkillsBuild</div>
+        </div>
+      </div>
+      <div class="cert-year">2023</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-left">
+        <div class="cert-icon">🟣</div>
+        <div>
+          <div class="cert-name">Meta Front-End Developer Professional Certificate</div>
+          <div class="cert-issuer">Meta / Coursera</div>
+        </div>
+      </div>
+      <div class="cert-year">2023</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-left">
+        <div class="cert-icon">🟠</div>
+        <div>
+          <div class="cert-name">Oracle Java SE Foundations Associate</div>
+          <div class="cert-issuer">Oracle</div>
+        </div>
+      </div>
+      <div class="cert-year">2022</div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-left">
+        <div class="cert-icon">🟢</div>
+        <div>
+          <div class="cert-name">NC II – Computer Systems Servicing</div>
+          <div class="cert-issuer">TESDA Philippines</div>
+        </div>
+      </div>
+      <div class="cert-year">2021</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label reveal">05 / Contact</div>
+  <div class="contact-title reveal">Let's <span>Connect</span></div>
+  <p class="contact-sub reveal">I'm actively seeking my first role at IBM Philippines.<br>Let's talk about how I can contribute to your team.</p>
+  <div class="contact-links reveal">
+    <a href="mailto:angelgabriel.ballon@email.com" class="contact-link">✉ EMAIL</a>
+    <a href="https://linkedin.com/in/angelballon" class="contact-link" target="_blank">in LINKEDIN</a>
+    <a href="https://github.com/angelballon" class="contact-link" target="_blank">&#9670; GITHUB</a>
+    <a href="tel:+639XXXXXXXXX" class="contact-link">☏ CALL</a>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; 2026 Angel Gabriel R. Ballon · All Rights Reserved</span>
+  <span>Applying to <span class="footer-ibm">IBM Philippines</span> · Junior Software Developer</span>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Photo upload
+  const photoInput = document.getElementById('photoInput');
+  const photoPreview = document.getElementById('photoPreview');
+  const photoPlaceholder = document.getElementById('photoPlaceholder');
+  const dropZone = document.getElementById('dropZone');
+
+  const STORAGE_KEY = 'agb_portfolio_photo';
+
+  function applyImage(dataUrl) {
+    photoPreview.src = dataUrl;
+    photoPreview.style.display = 'block';
+    photoPlaceholder.style.display = 'none';
+    dropZone.classList.add('has-image');
+    document.getElementById('exportWrap').style.display = 'block';
+  }
+
+  function exportHTML() {
+    const savedPhoto = localStorage.getItem(STORAGE_KEY);
+    if (!savedPhoto) return;
+    let html = document.documentElement.outerHTML;
+    const bakedScript = '<script>window.addEventListener("DOMContentLoaded",function(){var img=document.getElementById("photoPreview");var ph=document.getElementById("photoPlaceholder");var dz=document.getElementById("dropZone");var ew=document.getElementById("exportWrap");if(img){img.src=BAKED_IMAGE_SRC;img.style.display="block";}if(ph)ph.style.display="none";if(dz)dz.classList.add("has-image");if(ew)ew.style.display="block";});<\/script>';
+    const withBaked = bakedScript.replace('BAKED_IMAGE_SRC', JSON.stringify(savedPhoto));
+    html = html.replace('</body>', withBaked + '</body>');
+    const blob = new Blob([html], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+  function loadImage(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const dataUrl = e.target.result;
+      try { localStorage.setItem(STORAGE_KEY, dataUrl); } catch(err) {}
+      applyImage(dataUrl);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Restore saved photo on load
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) applyImage(saved);
+  } catch(err) {}
+
+  photoInput.addEventListener('change', e => loadImage(e.target.files[0]));
+
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    loadImage(e.dataTransfer.files[0]);
+  });
+</script>
+</body>
+</html>
